@@ -1,0 +1,370 @@
+/* ========================================
+   作品集 - 游戏展示页样式
+   ======================================== */
+
+/* CSS Variables */
+:root {
+    --bg-dark: #0a0a0f;
+    --bg-card: #12121a;
+    --bg-card-hover: #1a1a25;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0b0;
+    --accent-purple: #8b5cf6;
+    --accent-blue: #3b82f6;
+    --accent-pink: #ec4899;
+    --accent-orange: #f97316;
+    --gradient-main: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 50%, #ec4899 100%);
+    --gradient-jiuhu: linear-gradient(135deg, #f97316 0%, #ec4899 100%);
+    --shadow-glow: 0 0 40px rgba(139, 92, 246, 0.3);
+    --border-radius: 16px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ========================================
+   Hero Section
+   ======================================== */
+.hero {
+    position: relative;
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    overflow: hidden;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-title {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    font-weight: 700;
+    background: var(--gradient-main);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.hero-subtitle {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    animation: fadeInUp 0.8s ease-out 0.2s backwards;
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: var(--gradient-main);
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: white;
+    transition: var(--transition);
+    animation: fadeInUp 0.8s ease-out 0.4s backwards;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: var(--shadow-glow);
+}
+
+.hero-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+/* ========================================
+   Games Section
+   ======================================== */
+.games-section {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    background: var(--gradient-main);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+/* ========================================
+   Game Card
+   ======================================== */
+.game-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: var(--transition);
+    overflow: hidden;
+}
+
+.game-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-main);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    background: var(--bg-card-hover);
+    border-color: rgba(139, 92, 246, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), var(--shadow-glow);
+}
+
+.game-card:hover::before {
+    opacity: 0.05;
+}
+
+/* 九狐系列特殊样式 */
+.game-card.series-jiuhu {
+    border-color: rgba(249, 115, 22, 0.2);
+}
+
+.game-card.series-jiuhu:hover {
+    border-color: rgba(249, 115, 22, 0.5);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 40px rgba(249, 115, 22, 0.3);
+}
+
+.game-card.series-jiuhu .game-tag {
+    background: var(--gradient-jiuhu);
+}
+
+/* Game Number */
+.game-number {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    opacity: 0.5;
+}
+
+/* Game Icon */
+.game-icon {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    background: rgba(139, 92, 246, 0.1);
+    border-radius: 12px;
+    transition: var(--transition);
+}
+
+.game-card:hover .game-icon {
+    transform: scale(1.1);
+    background: rgba(139, 92, 246, 0.2);
+}
+
+.game-card.series-jiuhu .game-icon {
+    background: rgba(249, 115, 22, 0.1);
+}
+
+.game-card.series-jiuhu:hover .game-icon {
+    background: rgba(249, 115, 22, 0.2);
+}
+
+/* Game Info */
+.game-info {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.game-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.game-tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: var(--gradient-main);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+/* ========================================
+   Footer
+   ======================================== */
+.footer {
+    margin-top: 4rem;
+    padding: 3rem 2rem;
+    background: var(--bg-card);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.footer-link {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.footer-link:hover {
+    color: var(--accent-purple);
+}
+
+.copyright {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    opacity: 0.6;
+}
+
+/* ========================================
+   Animations
+   ======================================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Staggered animation for cards */
+.game-card {
+    animation: fadeInUp 0.6s ease-out backwards;
+}
+
+.game-card:nth-child(1) { animation-delay: 0.1s; }
+.game-card:nth-child(2) { animation-delay: 0.15s; }
+.game-card:nth-child(3) { animation-delay: 0.2s; }
+.game-card:nth-child(4) { animation-delay: 0.25s; }
+.game-card:nth-child(5) { animation-delay: 0.3s; }
+.game-card:nth-child(6) { animation-delay: 0.35s; }
+.game-card:nth-child(7) { animation-delay: 0.4s; }
+.game-card:nth-child(8) { animation-delay: 0.45s; }
+.game-card:nth-child(9) { animation-delay: 0.5s; }
+.game-card:nth-child(10) { animation-delay: 0.55s; }
+.game-card:nth-child(11) { animation-delay: 0.6s; }
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+@media (max-width: 768px) {
+    .hero {
+        min-height: 40vh;
+        padding: 3rem 1.5rem;
+    }
+
+    .games-section {
+        padding: 1.5rem 1rem;
+    }
+
+    .games-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .game-card {
+        padding: 1.25rem;
+    }
+
+    .game-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+.game-card:focus-visible {
+    outline: 2px solid var(--accent-purple);
+    outline-offset: 2px;
+}
