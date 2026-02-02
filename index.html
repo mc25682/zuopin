@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Portfolio — 独立游戏作品</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #faf8f5;           /* 温暖米白 */
+            --surface: #ffffff;       /* 纯白卡片 */
+            --surface-hover: #fff8f0; /* 暖橙 hover */
+            --border: #e8e2d9;        /* 暖灰边框 */
+            --border-hover: #d4c4b0;  /* 深暖灰 */
+            --text: #2d2a26;          /* 温暖炭黑 */
+            --text-muted: #8c8279;    /* 暖灰 */
+            --accent: #e67e22;        /* 温暖橙 */
+            --accent-light: #f39c12;  /* 琥珀 */
+            --accent-dim: rgba(230, 126, 34, 0.08);
+            --font-sans: 'Inter', -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --shadow: 0 2px 8px rgba(139, 69, 19, 0.04);
+            --shadow-hover: 0 8px 24px rgba(139, 69, 19, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            padding: 5rem 4rem 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 2rem;
+        }
+
+        .brand {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--accent);
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            margin-top: 0.5rem;
+            line-height: 1.2;
+            color: var(--text);
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            margin-top: 0.75rem;
+            color: var(--text-muted);
+            font-size: 1.125rem;
+            max-width: 400px;
+            font-weight: 400;
+        }
+
+        .btn-store {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.75rem;
+            border: 1px solid var(--border);
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            transition: all 0.25s ease;
+            background: var(--surface);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-store:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--surface-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 3rem 4rem 4rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 0.8125rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .count {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            background: var(--surface);
+            padding: 0.375rem 0.875rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+
+        /* Games Grid - 3 columns x 3 rows */
+        .games-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (max-width: 1024px) {
+            .games-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .games-list {
+                grid-template-columns: 1fr;
+            }
+            header, main {
+                padding: 2rem 1.5rem;
+            }
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+            }
+        }
+
+        .game-card {
+            position: relative;
+            background: var(--surface);
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            height: 100%;
+        }
+
+        .game-card:hover {
+            background: var(--surface-hover);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.25rem;
+        }
+
+        .game-number {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            background: var(--bg);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .game-icon {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: var(--accent-dim);
+            border-radius: 10px;
+            color: var(--accent);
+        }
+
+        .game-content {
+            flex: 1;
+        }
+
+        .game-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .game-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 0.375rem 0.75rem;
+            background: var(--bg);
+            color: var(--text-muted);
+            border-radius: 20px;
+            font-weight: 500;
+            border: 1px solid var(--border);
+        }
+
+        .game-tag.series {
+            background: rgba(230, 126, 34, 0.1);
+            color: var(--accent);
+            border-color: rgba(230, 126, 34, 0.2);
+        }
+
+        .game-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .arrow {
+            color: var(--text-muted);
+            font-size: 1.125rem;
+            transition: all 0.25s ease;
+        }
+
+        .game-card:hover .arrow {
+            color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .page-btn {
+            min-width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text-muted);
+            font-family: var(--font-sans);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .page-btn:hover:not(:disabled) {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--surface-hover);
+            transform: translateY(-1px);
+        }
+
+        .page-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            font-weight: 600;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background: var(--bg);
+        }
+
+        .pagination-info {
+            margin: 0 1rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 2.5rem 4rem;
+            margin-top: auto;
+            background: var(--surface);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .footer-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .footer-link:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            .games-list {
+                gap: 1rem;
+            }
+            .game-card {
+                padding: 1.25rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease forwards;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <div>
+                <div class="brand">Game Portfolio</div>
+                <h1 class="hero-title">精选游戏作品</h1>
+                <p class="hero-subtitle">精心打造的策略、养成与修仙类游戏合集</p>
+            </div>
+            <a href="https://www.ifanso.com/shop.php?M_id=15123" target="_blank" class="btn-store">
+                访问店铺 →
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <div class="section-header">
+            <span class="section-title">在售游戏</span>
+            <span class="count">共 <span id="total-count">13</span> 款</span>
+        </div>
+
+        <div id="games-container" class="games-list">
+            <!-- Games injected by JS -->
+        </div>
+
+        <div class="pagination">
+            <button class="page-btn" id="prev-btn" onclick="changePage(-1)">←</button>
+            <div id="page-numbers" style="display: flex; gap: 0.5rem;"></div>
+            <span class="pagination-info">第 <span id="current-page">1</span> 页，共 <span id="total-pages">2</span> 页</span>
+            <button class="page-btn" id="next-btn" onclick="changePage(1)">→</button>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="https://www.ifanso.com/shop.php?M_id=15123" target="_blank" class="footer-link">店铺主页</a>
+                <a href="mailto:uicyyx@gmail.com" class="footer-link">售后支持：uicyyx@gmail.com</a>
+            </div>
+            <div>© 2026 All Rights Reserved</div>
+        </div>
+    </footer>
+
+    <script>
+        // Game data with icons
+        const games = [
+            { id: "01", title: "租借领地", tag: "养成", tagType: "", icon: "🏠", url: "https://www.ifanso.com/?type=productinfo&id=8288" },
+            { id: "02", title: "忠烈神将", tag: "策略", tagType: "", icon: "⚔️", url: "https://www.ifanso.com/?type=productinfo&id=8290" },
+            { id: "03", title: "渡劫飞升", tag: "修仙", tagType: "", icon: "☁️", url: "https://www.ifanso.com/?type=productinfo&id=8291" },
+            { id: "04", title: "渡劫plus", tag: "修仙", tagType: "", icon: "⚡", url: "https://www.ifanso.com/?type=productinfo&id=8292" },
+            { id: "05", title: "鸠占鹊巢", tag: "策略", tagType: "", icon: "🎯", url: "https://www.ifanso.com/?type=productinfo&id=8293" },
+            { id: "06", title: "鸠占鹊巢2", tag: "策略", tagType: "", icon: "🎪", url: "https://www.ifanso.com/?type=productinfo&id=8294" },
+            { id: "07", title: "囚车战斗", tag: "动作", tagType: "", icon: "🚗", url: "https://www.ifanso.com/?type=productinfo&id=8295" },
+            { id: "08", title: "九狐（苍域之境）", tag: "九狐系列", tagType: "series", icon: "🦊", url: "https://www.ifanso.com/?type=productinfo&id=8296" },
+            { id: "09", title: "九狐2（灵域之境）", tag: "九狐系列", tagType: "series", icon: "🦊", url: "https://www.ifanso.com/?type=productinfo&id=8297" },
+            { id: "10", title: "九狐3（神域之境）", tag: "九狐系列", tagType: "series", icon: "🦊", url: "https://www.ifanso.com/?type=productinfo&id=8298" },
+            { id: "11", title: "九狐4（仙域之境）", tag: "九狐系列", tagType: "series", icon: "🦊", url: "https://www.ifanso.com/?type=productinfo&id=8464" },
+            { id: "12", title: "蛮族入侵", tag: "策略", tagType: "", icon: "⚔️", url: "https://www.ifanso.com/?type=productinfo&id=8732" },
+            { id: "13", title: "钢琴大师1", tag: "音乐", tagType: "", icon: "🎹", url: "#" }
+        ];
+
+        const itemsPerPage = 9;
+        let currentPage = 1;
+        const totalPages = Math.ceil(games.length / itemsPerPage);
+
+        function renderGames() {
+            const container = document.getElementById('games-container');
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pageGames = games.slice(start, end);
+
+            container.innerHTML = '';
+            
+            pageGames.forEach((game, index) => {
+                const card = document.createElement('a');
+                card.href = game.url;
+                card.target = "_blank";
+                card.className = 'game-card fade-in';
+                card.style.animationDelay = `${index * 0.06}s`;
+                
+                card.innerHTML = `
+                    <div class="game-header">
+                        <span class="game-number">${game.id}</span>
+                        <div class="game-icon">${game.icon}</div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">${game.title}</h3>
+                        <span class="game-tag ${game.tagType}">${game.tag}</span>
+                    </div>
+                    <div class="game-footer">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">查看详情</span>
+                        <span class="arrow">→</span>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+
+            updatePagination();
+        }
+
+        function updatePagination() {
+            document.getElementById('current-page').textContent = currentPage;
+            document.getElementById('total-pages').textContent = totalPages;
+            document.getElementById('prev-btn').disabled = currentPage === 1;
+            document.getElementById('next-btn').disabled = currentPage === totalPages;
+            
+            // Generate page number buttons
+            const pageNumbers = document.getElementById('page-numbers');
+            pageNumbers.innerHTML = '';
+            
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('button');
+                btn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+                btn.textContent = i;
+                btn.onclick = () => goToPage(i);
+                pageNumbers.appendChild(btn);
+            }
+        }
+
+        function changePage(direction) {
+            goToPage(currentPage + direction);
+        }
+
+        function goToPage(page) {
+            if (page >= 1 && page <= totalPages && page !== currentPage) {
+                currentPage = page;
+                renderGames();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Initialize
+        renderGames();
+    </script>
+
+</body>
+</html>
